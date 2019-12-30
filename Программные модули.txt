@@ -52,6 +52,18 @@ WHERE EmployeeID = @EmployeeID;
 
 SELECT *
 FROM ListIntervals(1)
+----------------------------------------
+--сколько у каждого продавца было периодов без заказа длиной 20 дней
+
+SELECT [FirstName] + ' ' + [LastName],
+	(
+	 SELECT Count(*)
+	 FROM ListIntervals(Employees.EmployeeID)
+	 WHERE DATEDIFF = 20
+	 )
+FROM [dbo].[Employees] 
+
+
 **************************************
 ТАБЛИЧНЫЕ ВЫРАЖЕНИЯ
 ВРЕМЕННАЯ VIEW
