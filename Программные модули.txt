@@ -1,0 +1,56 @@
+ В КОНТЕЙНЕРЕ VIEW
+ПРЕДСТАВЛЕНИЕ В ВИДЕ ТАБЛИЦЫ
+
+CREATE VIEW MySales
+  AS 
+	SELECT ....
+	FROM  ....
+гибкая снаружи, все что делаем с таблицей, делаем с VIEW
+************************************
+CREATE PROCEDURE ContactName @Str varchar(10),
+			     @Qty int
+  AS
+	SELECT ...
+	FROM ....
+	where Title like '%'+ @Str + '%'
+
+
+EXECUTE ContactName 'a', 30
+
+Процедура не усложняется снаружи, только внутри
+Процедуру вызываем
+не гибкая снаружи
+можно использовать параметры
+
+************************************
+ФУНКЦИЯ
+CREATE FUNCTION ContactName2 (
+			     @Str varchar(10),
+			     @Qty int
+			     )
+  RETURNS TABLE 	
+  AS
+    RETURN
+	SELECT ...
+	FROM ....
+	where Title like '%'+ @Str + '%'
+
+позволяет совместить плюсы вью и процедур
+можно усложнять и внутри и снаружи
+**************************************
+ТАБЛИЧНЫЕ ВЫРАЖЕНИЯ
+ВРЕМЕННАЯ VIEW
+ПОСЛЕ ИСПОЛЬЗОВАНИЯ САМОЛИКВИДИРУЕТСЯ
+
+WITH <H>
+  AS(
+     SELECT ...
+     FROM ....	
+    )
+
+SELECT *
+FROM <H>
+
+
+
+
