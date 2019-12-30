@@ -63,7 +63,18 @@ SELECT [FirstName] + ' ' + [LastName],
 	 )
 FROM [dbo].[Employees] 
 
-
+--в JOIN требуется функцию вызвать несколько раз >>>APPLY
+--каждая строка джойниться со своей табличкой
+SELECT [FirstName] + ' ' + [LastName], 
+	COUNT
+	(
+		CASE DATEDIFF
+		  WHEN 20 THEN 1
+		END
+	)
+FROM [dbo].[Employees] AS E 
+	OUTER APPLY ListIntervals(E.EmployeeID) AS I
+GROUP BY [FirstName] + ' ' + [LastName]
 **************************************
 ТАБЛИЧНЫЕ ВЫРАЖЕНИЯ
 ВРЕМЕННАЯ VIEW
