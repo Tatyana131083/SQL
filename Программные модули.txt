@@ -37,6 +37,21 @@ CREATE FUNCTION ContactName2 (
 
 позволяет совместить плюсы вью и процедур
 можно усложнять и внутри и снаружи
+
+///сколько дней прошло от предыдущей продажи до текущей по продавцам
+CREATE FUNCTION ListIntervals(@EmployeeID int)
+  RETURNS TABLE
+AS
+RETURN 
+SELECT OrderDate AS OrderDate, 
+       LAG(OrderDate, 1, OrderDate) OVER (ORDER BY OrderDate ASC) AS LAG ,
+	   DATEDIFF(DAY, LAG(OrderDate, 1, OrderDate) OVER (ORDER BY OrderDate ASC)
+	            ,OrderDate) AS DATEDIFF
+FROM dbo.Orders
+WHERE EmployeeID = @EmployeeID;
+
+SELECT *
+FROM ListIntervals(1)
 **************************************
 ТАБЛИЧНЫЕ ВЫРАЖЕНИЯ
 ВРЕМЕННАЯ VIEW
